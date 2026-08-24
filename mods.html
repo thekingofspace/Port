@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mods | Raikin7's Portfolio</title>
+<meta name="description" content="Minecraft mods by Raikin7 published on CurseForge. SCP CoreLib, SCP 839 Candied Worms and SCP 689 The Jade Statue.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="grain"></div>
+
+<header class="nav">
+  <a class="nav-brand" href="index.html"><span class="nav-dot"></span>Raikin7</a>
+  <nav class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="games.html">Games</a>
+    <a href="code.html">Code</a>
+    <a href="gui.html">GUI</a>
+    <a href="mods.html">Mods</a>
+    <a href="art.html">Art</a>
+    <a href="about.html">About</a>
+  </nav>
+  <a class="nav-cta" href="https://github.com/thekingofspace" target="_blank" rel="noopener">GitHub</a>
+</header>
+
+<main>
+
+<div class="page-head">
+  <div class="hero-glow"></div>
+  <p class="eyebrow">Chapter Four</p>
+  <h1>Minecraft Mods</h1>
+  <div class="rule"><i></i></div>
+  <p class="lede">
+    Published on CurseForge. A shared core library, and the anomalies built on top of it.
+  </p>
+</div>
+
+<section class="section">
+  <div class="grid grid-3">
+
+    <a class="card mod" href="https://www.curseforge.com/minecraft/mc-mods/scp-corelib" target="_blank" rel="noopener">
+      <div class="mod-glyph"><span>Core</span></div>
+      <h4>SCP CoreLib</h4>
+      <p>
+        The shared foundation the other mods depend on. Common registries, containment behaviour and
+        the plumbing every anomaly mod would otherwise rewrite from scratch. Writing this first is
+        what made the two mods below small.
+      </p>
+      <span class="link-out">CurseForge</span>
+    </a>
+
+    <a class="card mod" href="https://www.curseforge.com/minecraft/mc-mods/scp-839-candied-worms" target="_blank" rel="noopener">
+      <div class="mod-glyph"><span>839</span></div>
+      <h4>SCP 839 Candied Worms</h4>
+      <p>
+        Sweet, harmless looking, and absolutely neither of those things. Built on CoreLib with its
+        own items, effects and containment rules, so the mod itself is mostly the parts that make it
+        strange.
+      </p>
+      <span class="link-out">CurseForge</span>
+    </a>
+
+    <a class="card mod" href="https://www.curseforge.com/minecraft/mc-mods/scp-689-the-jade-statue" target="_blank" rel="noopener">
+      <div class="mod-glyph"><span>689</span></div>
+      <h4>SCP 689 The Jade Statue</h4>
+      <p>
+        An anomaly that only moves when nobody is looking at it. The interesting part is the
+        observation logic, which had to stay cheap enough to run every tick without dragging the
+        server down.
+      </p>
+      <span class="link-out">CurseForge</span>
+    </a>
+
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <span class="section-index">Why a library first</span>
+    <h2>The same habit, in a different engine</h2>
+    <p>
+      CoreLib exists for the same reason Pigeon and Blackbox exist. Two mods needed the same
+      containment plumbing, so it got written once, properly, and both mods became a thin layer of
+      the parts that are actually interesting. The engine changes, the instinct does not.
+    </p>
+  </div>
+  <div class="next-up">
+    <a class="next-card" href="code.html"><b>The libraries</b><span>The same approach applied to Luau and Rust</span></a>
+    <a class="next-card" href="games.html"><b>The games</b><span>Where those libraries ended up running</span></a>
+    <a class="next-card" href="about.html"><b>About</b><span>Languages, history and how I work</span></a>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <h3>Raikin7</h3>
+      <p>Games, engine level libraries, GUI and the art in between.</p>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="games.html">Games</a>
+      <a href="code.html">Code</a>
+      <a href="https://github.com/thekingofspace" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.roblox.com/users/228199808/profile" target="_blank" rel="noopener">Roblox</a>
+    </div>
+  </div>
+  <p class="footer-note">Built by hand. No frameworks.</p>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

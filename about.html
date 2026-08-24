@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About | Raikin7's Portfolio</title>
+<meta name="description" content="Raikin7 writes TypeScript, Luau and Rust, builds GUI in Vide, and has been shipping since 2019.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="grain"></div>
+
+<header class="nav">
+  <a class="nav-brand" href="index.html"><span class="nav-dot"></span>Raikin7</a>
+  <nav class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="games.html">Games</a>
+    <a href="code.html">Code</a>
+    <a href="gui.html">GUI</a>
+    <a href="mods.html">Mods</a>
+    <a href="art.html">Art</a>
+    <a href="about.html">About</a>
+  </nav>
+  <a class="nav-cta" href="https://github.com/thekingofspace" target="_blank" rel="noopener">GitHub</a>
+</header>
+
+<main>
+
+<div class="page-head">
+  <div class="hero-glow"></div>
+  <p class="eyebrow">Chapter Six</p>
+  <h1>About</h1>
+  <div class="rule"><i></i></div>
+  <p class="lede">What I work in, what I have shipped, and how I like to build.</p>
+</div>
+
+<section class="section">
+  <div class="about-grid">
+    <div class="about-copy">
+      <p>
+        I started writing Luau in 2019 and Rust in 2022. These days my games are written in
+        TypeScript and lean heavily on classes, with the GUI built in Vide, though the Luau
+        underneath is still where I do my deepest work.
+      </p>
+      <p>
+        Most of what I enjoy sits below the gameplay layer, in the systems everything else stands
+        on. When a project needs networking, serialization, input handling or logging, I would
+        rather write the library properly once than patch around the same gap in every feature that
+        follows. Pigeon, Buffer, LehuaClass, InputController, ReplicationPP and Blackbox all came
+        out of exactly that instinct, and so did SCP CoreLib on the Minecraft side.
+      </p>
+      <p>
+        Lehua is the largest of them. It is a Luau runtime written in Rust on top of mlua and tokio
+        that runs a project immediately and then builds it into one standalone binary, with a
+        standard library covering the filesystem, networking, databases, cryptography, regex,
+        processes and parallel virtual machines.
+      </p>
+      <p>
+        I also model, draw and design GUI, which means I can take a creature from a sketch to a
+        rigged model to the code that makes it fight you, then build the screen it appears on.
+        Advanced on the front end and on the back end, and comfortable on either side of the wire.
+      </p>
+    </div>
+
+    <div class="skills">
+      <div class="skill-group">
+        <h5>Building in now</h5>
+        <div class="chips chips-lg"><span>TypeScript</span><span>Luau</span><span>Rust</span><span>Vide</span></div>
+      </div>
+      <div class="skill-group">
+        <h5>Also write</h5>
+        <div class="chips chips-lg"><span>C#</span><span>C++</span><span>JavaScript</span><span>Python</span><span>HTML</span><span>CSS</span></div>
+      </div>
+      <div class="skill-group">
+        <h5>Systems</h5>
+        <div class="chips chips-lg"><span>Networking</span><span>Serialization</span><span>Replication</span><span>Input</span><span>Logging</span><span>Tooling</span></div>
+      </div>
+      <div class="skill-group">
+        <h5>Front and back end</h5>
+        <div class="chips chips-lg"><span>Advanced front end</span><span>Advanced back end</span><span>Class based design</span><span>Reactive GUI</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <span class="section-index">Timeline</span>
+    <h2>How it went</h2>
+    <p>Seven years, from a first line of Luau to a language runtime in Rust.</p>
+  </div>
+
+  <div class="next-up">
+    <div class="next-card"><b>2019</b><span>First line of Luau written</span></div>
+    <div class="next-card"><b>2022</b><span>Thalaso Corp coded, and Rust picked up</span></div>
+    <div class="next-card"><b>2024</b><span>Thalaso Corp and Helix Tower Defense released</span></div>
+    <div class="next-card"><b>Now</b><span>TypeScript games, Vide GUI, and Lehua in Rust</span></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <span class="section-index">Get in touch</span>
+    <h2>Where to find me</h2>
+    <p>Open to gameplay and systems work, tooling, and anything that needs the layer underneath.</p>
+  </div>
+  <div class="next-up">
+    <a class="next-card" href="https://github.com/thekingofspace" target="_blank" rel="noopener"><b>GitHub</b><span>Lehua, Pigeon, BaseGame and the rest</span></a>
+    <a class="next-card" href="https://www.roblox.com/users/228199808/profile" target="_blank" rel="noopener"><b>Roblox</b><span>Published games under Raikin_145ps</span></a>
+    <a class="next-card" href="https://www.curseforge.com/minecraft/mc-mods/scp-corelib" target="_blank" rel="noopener"><b>CurseForge</b><span>The SCP mod set</span></a>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <h3>Raikin7</h3>
+      <p>Games, engine level libraries, GUI and the art in between.</p>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="games.html">Games</a>
+      <a href="code.html">Code</a>
+      <a href="https://github.com/thekingofspace" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.roblox.com/users/228199808/profile" target="_blank" rel="noopener">Roblox</a>
+    </div>
+  </div>
+  <p class="footer-note">Built by hand. No frameworks.</p>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

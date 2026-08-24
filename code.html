@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Code | Raikin7's Portfolio</title>
+<meta name="description" content="Open libraries and tools by Raikin7. Lehua, Pigeon, Buffer, LehuaClass, InputController, ReplicationPP, Blackbox and Socket.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="grain"></div>
+
+<header class="nav">
+  <a class="nav-brand" href="index.html"><span class="nav-dot"></span>Raikin7</a>
+  <nav class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="games.html">Games</a>
+    <a href="code.html">Code</a>
+    <a href="gui.html">GUI</a>
+    <a href="mods.html">Mods</a>
+    <a href="art.html">Art</a>
+    <a href="about.html">About</a>
+  </nav>
+  <a class="nav-cta" href="https://github.com/thekingofspace" target="_blank" rel="noopener">GitHub</a>
+</header>
+
+<main>
+
+<div class="page-head">
+  <div class="hero-glow"></div>
+  <p class="eyebrow">Chapter Two</p>
+  <h1>Code</h1>
+  <div class="rule"><i></i></div>
+  <p class="lede">
+    Open libraries and tools I wrote and maintain, plus one I contributed to rather than authored.
+    Choose a project to read a real excerpt from its source.
+  </p>
+</div>
+
+<section class="section">
+  <div class="showcase">
+    <div class="showcase-tabs" role="tablist" aria-label="Projects">
+      <button class="tab is-active" role="tab" aria-selected="true" data-panel="p-lehua">
+        <b>Lehua</b><span>A Luau runtime in Rust</span>
+      </button>
+      <button class="tab" role="tab" aria-selected="false" data-panel="p-pigeon">
+        <b>Pigeon</b><span>Networking that stays small</span>
+      </button>
+      <button class="tab" role="tab" aria-selected="false" data-panel="p-buffer">
+        <b>Buffer</b><span>Binary serialization</span>
+      </button>
+      <button class="tab" role="tab" aria-selected="false" data-panel="p-class">
+        <b>LehuaClass</b><span>Classes, traits, interfaces</span>
+      </button>
+      <button class="tab" role="tab" aria-selected="false" data-panel="p-input">
+        <b>InputController</b><span>Bindings across devices</span>
+      </button>
+      <button class="tab" role="tab" aria-selected="false" data-panel="p-repl">
+        <b>ReplicationPP</b><span>Asset replication</span>
+      </button>
+      <button class="tab" role="tab" aria-selected="false" data-panel="p-black">
+        <b>Blackbox</b><span>Structured logging</span>
+      </button>
+      <button class="tab" role="tab" aria-selected="false" data-panel="p-socket">
+        <b>Socket</b><span>Contribution, not mine</span>
+      </button>
+    </div>
+
+    <div class="showcase-panels">
+
+      <article class="panel is-active" id="p-lehua" role="tabpanel">
+        <div class="panel-head">
+          <div>
+            <h4>Lehua</h4>
+            <p>
+              A runtime for Luau written in Rust on top of mlua and tokio. You write Luau, run it
+              straight away, then build the whole project into one standalone program that needs no
+              Rust and no source files. It ships a standard library covering the filesystem,
+              networking, SQLite, Mongo, regex, cryptography, serde, processes, parallel virtual
+              machines and a cross VM messenger, with written docs for every module.
+            </p>
+          </div>
+          <a class="btn btn-small" href="https://github.com/thekingofspace/LehuaLang" target="_blank" rel="noopener">Repository</a>
+        </div>
+        <div class="chips"><span>Rust</span><span>mlua</span><span>tokio</span><span>CLI</span><span>Single file builds</span></div>
+        <p class="code-caption">A global topic hub, so parallel Luau states can publish to each other</p>
+        <pre><code data-lang="rust">struct Event {
+    sub_id: u64,
+    args: Vec&lt;PortableValue&gt;,
+}
+
+struct HubEntry {
+    id: u64,
+    topic: String,
+    tx: Sender&lt;Event&gt;,
+}
+
+fn hub() -&gt; &amp;'static Mutex&lt;Vec&lt;HubEntry&gt;&gt; {
+    static HUB: OnceLock&lt;Mutex&lt;Vec&lt;HubEntry&gt;&gt;&gt; = OnceLock::new();
+    HUB.get_or_init(|| Mutex::new(Vec::new()))
+}
+
+impl Local {
+    fn unsubscribe(&amp;self, id: u64) -&gt; bool {
+        let removed = self.handlers.borrow_mut().remove(&amp;id).is_some();
+        if removed {
+            hub().lock().unwrap().retain(|e| e.id != id);
+        }
+        removed
+    }
+}</code></pre>
+      </article>
+
+      <article class="panel" id="p-pigeon" role="tabpanel">
+        <div class="panel-head">
+          <div>
+            <h4>Pigeon</h4>
+            <p>
+              Most Roblox games create one RemoteEvent per feature and then hand write the startup
+              fix, the access checks and the cleanup for every single one. Pigeon takes that job
+              away. You name a channel on the server, name the same channel on the client, and the
+              two are talking. Hundreds of channels share a pool of at most 32 remote slots, early
+              messages are held and delivered in order, and channels can be guarded, grouped into
+              rooms, wrapped in middleware or backed by a table that replicates on write.
+            </p>
+          </div>
+          <a class="btn btn-small" href="https://github.com/thekingofspace/Pigeon" target="_blank" rel="noopener">Repository</a>
+        </div>
+        <div class="chips"><span>Luau</span><span>Remote pooling</span><span>Middleware</span><span>Rooms</span><span>Documented</span></div>
+        <p class="code-caption">Server</p>
+        <pre><code data-lang="luau">local Pigeon = require(ReplicatedStorage.Pigeon)
+local shop = Pigeon.new("Shop")
+
+shop:When("Buy", function(player, itemId)
+	return giveItem(player, itemId)
+end)
+
+shop:Broadcast("StockChanged", getStock())</code></pre>
+        <p class="code-caption">Client</p>
+        <pre><code data-lang="luau">local Pigeon = require(ReplicatedStorage.Pigeon)
+local shop = Pigeon.new("Shop")
+
+shop:On("StockChanged", updateShopUi)
+shop:Init()
+
+print(shop:Call("Buy", "sword"))</code></pre>
+      </article>
+
+      <article class="panel" id="p-buffer" role="tabpanel">
+        <div class="panel-head">
+          <div>
+            <h4>Buffer</h4>
+            <p>
+              Expanded buffer tooling that forwards every unknown index to the built in buffer
+              library, so it drops straight in as a replacement. On top of that it adds a chainable
+              writer and reader, variable length integers, packed formats, and readers and writers
+              for Vector2, Vector3, CFrame, Color3 and UDim2. Anything that changes a length returns
+              a fresh buffer, because buffers in Luau are fixed size.
+            </p>
+          </div>
+          <a class="btn btn-small" href="https://github.com/thekingofspace/BaseGame/blob/master/Modules/Shared/Buffer.luau" target="_blank" rel="noopener">Source</a>
+        </div>
+        <div class="chips"><span>Luau</span><span>strict</span><span>optimize 2</span><span>Varints</span><span>Bit packing</span></div>
+        <p class="code-caption">Variable length integers, bounds checked against the real buffer length</p>
+        <pre><code data-lang="luau">function Buffer.WriteVarUInt(b: buffer, offset: number, value: number): number
+	checkBuffer(b, "b", "WriteVarUInt")
+	local rest = math.floor(value)
+
+	if rest &lt; 0 then
+		fail("WriteVarUInt", ("value must be non-negative, got %s (use WriteVarInt)"):format(tostring(value)))
+	end
+
+	local at = math.floor(offset)
+	local len = buffer.len(b)
+
+	while rest &gt;= 0x80 do
+		if at &gt;= len then
+			fail("WriteVarUInt", ("ran past the end of a %d byte buffer"):format(len))
+		end
+		buffer.writeu8(b, at, bit32.bor(bit32.band(rest, 0x7F), 0x80))
+		rest //= 128
+		at += 1
+	end
+
+	if at &gt;= len then
+		fail("WriteVarUInt", ("ran past the end of a %d byte buffer"):format(len))
+	end
+
+	buffer.writeu8(b, at, rest)
+	return at + 1
+end</code></pre>
+      </article>
+
+      <article class="panel" id="p-class" role="tabpanel">
+        <div class="panel-head">
+          <div>
+            <h4>LehuaClass</h4>
+            <p>
+              A class system for Luau with real visibility. Public and private members, statics,
+              metamethods, single and picked inheritance, traits with only, except and rename
+              filters, composed traits, delegation, interfaces checked at build time, get and set
+              controls, plus abstract and sealed classes. Written strict and native.
+            </p>
+          </div>
+          <a class="btn btn-small" href="https://github.com/thekingofspace/BaseGame/blob/master/Modules/Shared/LehuaClass.luau" target="_blank" rel="noopener">Source</a>
+        </div>
+        <div class="chips"><span>Luau</span><span>strict</span><span>native</span><span>Traits</span><span>Interfaces</span></div>
+        <p class="code-caption">The whole declaration surface of a class is one typed table</p>
+        <pre><code data-lang="luau">export type ClassDecl = {
+	Name: string,
+	Private: MemberTable?,
+	Public: MemberTable?,
+	MergedPublic: MemberTable?,
+	MergedPrivate: MemberTable?,
+	Static: MemberTable?,
+	Meta: MemberTable?,
+	Inherits: (Class | { InheritPick })?,
+	Traits: { Trait | TraitPick }?,
+	Delegates: { DelegateSpec }?,
+	Interfaces: { Interface }?,
+	Strict: boolean?,
+	Abstract: boolean?,
+	Sealed: boolean?,
+	[string]: any,
+}
+
+export type LehuaClassModule = {
+	NewClassData: (decl: ClassDecl) -&gt; Class,
+	BuildClassData: (class: Class, ...any) -&gt; Object,
+	SuperGet: (class: Class, memberName: string) -&gt; ((self: any, ...any) -&gt; ...any),
+	Interface: (spec: InterfaceSpec) -&gt; Interface,
+	Implements: (value: any, iface: Interface) -&gt; (boolean, { string }),
+	Trait: (spec: TraitSpec) -&gt; Trait,
+	Compose: (name: string, ...Trait) -&gt; Trait,
+	Delegate: (spec: DelegateSpec) -&gt; MemberTable,
+}</code></pre>
+      </article>
+
+      <article class="panel" id="p-input" role="tabpanel">
+        <div class="panel-head">
+          <div>
+            <h4>InputController</h4>
+            <p>
+              One input layer for keyboard, mouse, gamepad and touch. Named actions with chords and
+              modifiers, contexts you can push and pop, holds, repeats, taps, double taps and
+              sequences, one dimensional axes and two dimensional vectors with deadzones, drag
+              tracking, and live rebinding that captures whatever the player presses next.
+            </p>
+          </div>
+          <a class="btn btn-small" href="https://github.com/thekingofspace/BaseGame/blob/master/Modules/Shared/InputController.luau" target="_blank" rel="noopener">Source</a>
+        </div>
+        <div class="chips"><span>Luau</span><span>Gamepad</span><span>Touch</span><span>Rebinding</span><span>Contexts</span></div>
+        <p class="code-caption">Every behaviour a binding can have is declared in one options table</p>
+        <pre><code data-lang="luau">export type BindOptions = {
+	Hold: number?,
+	Repeat: number?,
+	RepeatRate: number?,
+	TapTime: number?,
+	DoubleTap: number?,
+	Exact: boolean?,
+	Sink: boolean?,
+	AllowGameProcessed: boolean?,
+	Enabled: boolean?,
+	OnBegan: ((input: InputObject?) -&gt; ())?,
+	OnEnded: ((input: InputObject?) -&gt; ())?,
+	OnTapped: ((input: InputObject?) -&gt; ())?,
+	OnDoubleTapped: ((input: InputObject?) -&gt; ())?,
+	OnHeld: (() -&gt; ())?,
+	OnRepeated: (() -&gt; ())?,
+}
+
+export type BindingTable = {
+	Key: (string | InputKey)?,
+	Chord: { string | InputKey }?,
+	Modifiers: { string | Enum.KeyCode }?,
+	Exact: boolean?,
+	Sink: boolean?,
+	AllowGameProcessed: boolean?,
+}</code></pre>
+      </article>
+
+      <article class="panel" id="p-repl" role="tabpanel">
+        <div class="panel-head">
+          <div>
+            <h4>ReplicationPP</h4>
+            <p>
+              Per player asset replication. The server stages a snapshot of an instance for chosen
+              players without blocking, marks it persistent so late joiners get it too, and can
+              revoke it later. The client reads assets out of a local folder, waits on one by name
+              with a timeout, and fires signals as copies arrive and leave. One module resolves to
+              the server or client half at require time, so both sides share a single type.
+            </p>
+          </div>
+          <a class="btn btn-small" href="https://github.com/thekingofspace/BaseGame/tree/master/Modules/Shared/ReplicationPP" target="_blank" rel="noopener">Source</a>
+        </div>
+        <div class="chips"><span>Luau</span><span>Server and client</span><span>Signals</span><span>Persistent targets</span></div>
+        <p class="code-caption">A single shared interface, resolved to the right half at require time</p>
+        <pre><code data-lang="luau">export type ReplicationPP = {
+    ReplicateAsset: (targets: Player | {Player}, object: Instance) -&gt; (),
+    ReplicateToAll: (object: Instance, persistent: boolean?) -&gt; (),
+    UnReplicate: (targets: Player | {Player}, object: Instance) -&gt; (),
+    UnReplicateAll: (object: Instance) -&gt; (),
+    IsReplicated: (player: Player, object: Instance) -&gt; boolean,
+    IsPending: (player: Player, object: Instance) -&gt; boolean,
+    GetReplicatedPlayers: (object: Instance) -&gt; {Player},
+    OnConfirmed: Signal&lt;Player, Instance&gt;,
+    OnRemoved: Signal&lt;Player, Instance&gt;,
+
+    GetAssetFolder: () -&gt; Folder,
+    GetAsset: (name: string) -&gt; Instance?,
+    GetAssets: () -&gt; {Instance},
+    AwaitAsset: (name: string, timeout: number?) -&gt; Instance?,
+    OnReplication: Signal&lt;Instance&gt;,
+    OnUnReplication: Signal&lt;Instance&gt;,
+}
+
+local target: ReplicationPP = (RunService:IsServer() and require(script.Server) or require(script.Client)) :: any
+
+return target</code></pre>
+      </article>
+
+      <article class="panel" id="p-black" role="tabpanel">
+        <div class="panel-head">
+          <div>
+            <h4>Blackbox</h4>
+            <p>
+              Structured logging and fault handling. Named loggers in a tree, levels, structured
+              fields, breadcrumbs, spans and traces, metrics, a ring buffer of recent history,
+              throttling, guards, serialization and pluggable sinks including an in memory sink you
+              can query in tests. Retries and attempts live in the same place as the logs that
+              record them.
+            </p>
+          </div>
+          <a class="btn btn-small" href="https://github.com/thekingofspace/BaseGame/tree/master/Modules/Shared/Blackbox" target="_blank" rel="noopener">Source</a>
+        </div>
+        <div class="chips"><span>Luau</span><span>Sinks</span><span>Metrics</span><span>Spans</span><span>Retries</span></div>
+        <p class="code-caption">Thirteen submodules behind one flat facade</p>
+        <pre><code data-lang="luau">const Blackbox = {}
+
+Blackbox.Level = Level
+Blackbox.Sinks = SinkRegistry
+Blackbox.Metrics = Metrics
+Blackbox.Serialize = Serialize
+Blackbox.Stack = Stack
+Blackbox.Ambient = Ambient
+Blackbox.Guard = Guard
+Blackbox.Ring = Ring
+Blackbox.Faults = Faults
+
+Blackbox.History = LoggerModule.History
+Blackbox.Root = LoggerModule.Root :: Types.Logger
+
+function Blackbox.Get(path: string?): Types.Logger
+    return LoggerModule.Get(path)
+end
+
+function Blackbox.Configure(options: Types.Config)
+    Config.Configure(options)
+end
+
+function Blackbox.Info(message: string, fields: {[string]: any}?)
+    Blackbox.Root:Info(message, fields)
+end</code></pre>
+      </article>
+
+      <article class="panel" id="p-socket" role="tabpanel">
+        <div class="panel-head">
+          <div>
+            <h4>Socket <span class="tag">Contributor</span></h4>
+            <p>
+              This one is not mine. Socket is an existing project that I contributed to rather than
+              authored, and it belongs here as collaboration rather than as a credit. Roblox has no
+              real sockets, so it puts an event based layer over RemoteEvents shaped like socket.io,
+              with independent channels, listeners you can add once or remove, targeted emits,
+              remote calls that wait for a reply with a timeout, broadcasts that skip a player,
+              rooms, incoming and outgoing middleware, and a ping that measures real latency.
+              Working on it is a good part of why Pigeon later took the shape it did.
+            </p>
+          </div>
+          <a class="btn btn-small" href="https://github.com/thekingofspace/roblox-sockets" target="_blank" rel="noopener">Repository</a>
+        </div>
+        <div class="chips"><span>Contribution</span><span>Luau</span><span>Channels</span><span>Remote calls</span><span>Rooms</span></div>
+        <p class="code-caption">Server</p>
+        <pre><code data-lang="luau">local Socket = require(ReplicatedStorage:WaitForChild("Socket"))
+local chatSocket = Socket.new("ChatChannel", true)
+
+chatSocket:On("HelloFromClient", function(player, message)
+    print("Server received from", player.Name, ":", message)
+end)
+
+chatSocket:Emit("HelloFromServer", "Welcome to the game!")</code></pre>
+        <p class="code-caption">Client</p>
+        <pre><code data-lang="luau">local Socket = require(ReplicatedStorage:WaitForChild("Socket"))
+local chatSocket = Socket.new("ChatChannel", true)
+
+chatSocket:On("HelloFromServer", function(message)
+    print("Client received:", message)
+end)
+
+chatSocket:Emit("HelloFromClient", "Hi Server, this is the client!")</code></pre>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <span class="section-index">Where it runs</span>
+    <h2>The stack these sit in</h2>
+    <p>The libraries are not academic. Every one of them came out of a game that needed it.</p>
+  </div>
+  <div class="next-up">
+    <a class="next-card" href="games.html"><b>The games</b><span>What the systems were written for</span></a>
+    <a class="next-card" href="gui.html"><b>The GUI</b><span>The Vide layer sitting on top of them</span></a>
+    <a class="next-card" href="about.html"><b>The stack</b><span>Languages, history and how I work</span></a>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <h3>Raikin7</h3>
+      <p>Games, engine level libraries, GUI and the art in between.</p>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="games.html">Games</a>
+      <a href="art.html">Art</a>
+      <a href="https://github.com/thekingofspace" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.roblox.com/users/228199808/profile" target="_blank" rel="noopener">Roblox</a>
+    </div>
+  </div>
+  <p class="footer-note">Built by hand. No frameworks.</p>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GUI | Raikin7's Portfolio</title>
+<meta name="description" content="Menus, HUDs and lobby screens built in Vide by Raikin7 for the horror project Cold Blooded.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="grain"></div>
+
+<header class="nav">
+  <a class="nav-brand" href="index.html"><span class="nav-dot"></span>Raikin7</a>
+  <nav class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="games.html">Games</a>
+    <a href="code.html">Code</a>
+    <a href="gui.html">GUI</a>
+    <a href="mods.html">Mods</a>
+    <a href="art.html">Art</a>
+    <a href="about.html">About</a>
+  </nav>
+  <a class="nav-cta" href="https://github.com/thekingofspace" target="_blank" rel="noopener">GitHub</a>
+</header>
+
+<main>
+
+<div class="page-head">
+  <div class="hero-glow"></div>
+  <p class="eyebrow">Chapter Three</p>
+  <h1>GUI</h1>
+  <div class="rule"><i></i></div>
+  <p class="lede">
+    Menus, HUDs and social screens from Cold Blooded, designed and built by me in Vide.
+  </p>
+</div>
+
+<section class="section">
+  <div class="ui-lead">
+    <p>
+      Everything here is built in Vide, so each panel is a reactive component driven by state rather
+      than a tree of instances poked by hand. A source updates, the screen follows, and nothing has
+      to remember to refresh itself.
+    </p>
+    <p>
+      Cold Blooded is a horror project, which set the hard constraint. The GUI had to stay readable
+      in near darkness without lighting the screen up and killing the mood. So everything sits on a
+      black ground, the type carries the tone, and colour appears only where a number has to be read
+      at a glance. Every screen below is live in game and wired to the systems behind it.
+    </p>
+    <div class="chips chips-lg"><span>Vide</span><span>Reactive state</span><span>Menus</span><span>HUD</span><span>Achievements</span><span>Party and lobby</span><span>Responsive scaling</span></div>
+  </div>
+
+  <div class="ui-grid">
+    <figure class="shot ui-shot" data-full="assets/ui/menu-title.png">
+      <img src="assets/ui/menu-title.png" alt="Cold Blooded title screen with a serif logo and a vertical menu" loading="lazy">
+      <figcaption><b>Title screen</b> A serif logo over a live scene, with the menu held to one quiet column so the world behind it stays the loudest thing on screen.</figcaption>
+    </figure>
+    <figure class="shot ui-shot" data-full="assets/ui/party.png">
+      <img src="assets/ui/party.png" alt="Party screen with a create party panel and a browsable list of open parties" loading="lazy">
+      <figcaption><b>Party and lobby</b> Create, browse or join by code, with locked parties, avatar thumbnails and live player counts that update as people come and go.</figcaption>
+    </figure>
+    <figure class="shot ui-shot" data-full="assets/ui/hud-night.png">
+      <img src="assets/ui/hud-night.png" alt="In game HUD showing a night clock, flashlight charge and office temperature" loading="lazy">
+      <figcaption><b>Night HUD</b> Clock, flashlight charge and office temperature, each showing its own keybind inline so nothing needs a tutorial to read.</figcaption>
+    </figure>
+    <figure class="shot ui-shot" data-full="assets/ui/achievements.png">
+      <img src="assets/ui/achievements.png" alt="Achievements screen listing an unlocked achievement with an eye icon" loading="lazy">
+      <figcaption><b>Achievements</b> Unlock tracking with icon art, a progress count in the header and a state dot that fills as each one lands.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <span class="section-index">How it is put together</span>
+    <h2>Reactive, not wired by hand</h2>
+    <p>Three rules keep a screen this dark from becoming unreadable or unmaintainable.</p>
+  </div>
+
+  <div class="grid grid-3">
+    <div class="card mod">
+      <div class="mod-glyph"><span>I</span></div>
+      <h4>State drives the tree</h4>
+      <p>
+        Every panel reads from a source. The party list, the flashlight charge and the unlock count
+        all render from state, so a change on the server arrives on screen without a single manual
+        update call.
+      </p>
+    </div>
+    <div class="card mod">
+      <div class="mod-glyph"><span>II</span></div>
+      <h4>Colour is information</h4>
+      <p>
+        Almost everything is white or bone on black. When something turns blue or red it is because
+        a number crossed a threshold, so the eye goes straight to the thing that changed.
+      </p>
+    </div>
+    <div class="card mod">
+      <div class="mod-glyph"><span>III</span></div>
+      <h4>Scales to the screen</h4>
+      <p>
+        Layouts are built in scale rather than fixed pixels, so the same components hold their
+        proportions from a phone up to a wide monitor without a separate mobile build.
+      </p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <h3>Raikin7</h3>
+      <p>Games, engine level libraries, GUI and the art in between.</p>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="games.html">Games</a>
+      <a href="code.html">Code</a>
+      <a href="https://github.com/thekingofspace" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.roblox.com/users/228199808/profile" target="_blank" rel="noopener">Roblox</a>
+    </div>
+  </div>
+  <p class="footer-note">Built by hand. No frameworks.</p>
+</footer>
+
+<div class="lightbox" id="lightbox" hidden>
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+  <img id="lightboxImg" src="" alt="">
+</div>
+
+<script src="main.js"></script>
+</body>
+</html>
