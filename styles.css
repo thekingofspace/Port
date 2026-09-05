@@ -597,6 +597,13 @@ p { margin: 0 0 1em; }
   margin-bottom: 18px;
 }
 
+.panel-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
 .panel-head h4 {
   font-size: 1.55rem;
   margin-bottom: 12px;
@@ -898,6 +905,7 @@ pre code {
   .nav { flex-wrap: wrap; gap: 10px; }
   .nav-links { order: 3; width: 100%; justify-content: flex-start; }
   .panel-head { flex-direction: column; }
+  .panel-actions { flex-direction: row; }
   .gallery { columns: 1; }
   pre code { font-size: 0.72rem; }
 }

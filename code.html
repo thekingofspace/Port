@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Code | Raikin7's Portfolio</title>
-<meta name="description" content="Open libraries and tools by Raikin7. Lehua, Pigeon, Buffer, LehuaClass, InputController, ReplicationPP, Blackbox and Socket.">
+<meta name="description" content="Open libraries and tools by Raikin7. Lehua, Pigeon, Vision, Buffer, LehuaClass, InputController, ReplicationPP, Blackbox and Socket.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -49,6 +49,9 @@
       </button>
       <button class="tab" role="tab" aria-selected="false" data-panel="p-pigeon">
         <b>Pigeon</b><span>Networking that stays small</span>
+      </button>
+      <button class="tab" role="tab" aria-selected="false" data-panel="p-vision">
+        <b>Vision</b><span>Declarative instance trees</span>
       </button>
       <button class="tab" role="tab" aria-selected="false" data-panel="p-buffer">
         <b>Buffer</b><span>Binary serialization</span>
@@ -148,6 +151,69 @@ shop:On("StockChanged", updateShopUi)
 shop:Init()
 
 print(shop:Call("Buy", "sword"))</code></pre>
+      </article>
+
+      <article class="panel" id="p-vision" role="tabpanel">
+        <div class="panel-head">
+          <div>
+            <h4>Vision</h4>
+            <p>
+              A declarative instance library for Luau. You describe a tree as a table, stage data
+              into it, and create it only when you are ready, so nothing exists in the world until
+              the moment you mount it. Named events carry state into the instance, derives compute
+              from other events, styles hold shared fields, and cleanup is declared beside the thing
+              it tears down. On top of that sit two spring families, keyframe timelines, sprite
+              sheets and flipbooks, cloning, injection, and building from an instance that already
+              exists. It ships a documentation site and three showcases you can open and play.
+            </p>
+          </div>
+          <div class="panel-actions">
+            <a class="btn btn-small" href="https://github.com/thekingofspace/Vision" target="_blank" rel="noopener">Repository</a>
+            <a class="btn btn-small btn-ghost" href="https://thekingofspace.github.io/Vision/" target="_blank" rel="noopener">Docs</a>
+          </div>
+        </div>
+        <div class="chips"><span>Luau</span><span>Declarative</span><span>Springs</span><span>Keyframes</span><span>Documented</span></div>
+        <p class="code-caption">A tree described as a table, given a value, then created</p>
+        <pre><code data-lang="luau">local Vision = require(ReplicatedStorage.Shared.Vision)
+
+local Scope = Vision.Scope()
+
+local Interface = Scope:Capture({
+    ClassName = "TextLabel",
+    Vision.mount(PlayerGui),
+
+    Vision.event("Count", 0, function(self, Value)
+        self.Text = `Clicks: {Value}`
+    end),
+})
+
+Interface.Count(12)
+Interface:Mount()</code></pre>
+        <p class="code-caption">Every keyword a declaration can hold, exposed from one table</p>
+        <pre><code data-lang="luau">const Vision = {
+    event = Symbols.event,
+    merge = Symbols.merge,
+    derive = Symbols.derive,
+    ready = Symbols.ready,
+    cleanup = Symbols.cleanup,
+    drawcall = Symbols.drawcall,
+    style = Symbols.style,
+    mount = Symbols.mount,
+    fromClone = Symbols.fromClone,
+    fromInstance = Symbols.fromInstance,
+    inject = Symbols.inject,
+    receive = Symbols.receive,
+    Keyframe = Symbols.Keyframe,
+
+    Sheet = Page.new,
+
+    lint = Lint,
+    create = Create,
+}
+
+function Vision.Scope(): Types.Scope
+    return (Scope.new() :: any) :: Types.Scope
+end</code></pre>
       </article>
 
       <article class="panel" id="p-buffer" role="tabpanel">
