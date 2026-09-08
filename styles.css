@@ -693,7 +693,21 @@ pre code {
 .ui-shot { margin: 0; }
 .ui-shot img { background: #000; }
 
-.shot figcaption {
+.clip {
+  margin: 0 0 22px;
+  background: linear-gradient(180deg, rgba(30, 21, 52, 0.9), rgba(16, 10, 28, 0.94));
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.clip video {
+  width: 100%;
+  display: block;
+  background: #000;
+}
+
+.shot figcaption,
+.clip figcaption {
   padding: 14px 18px;
   font-size: 0.92rem;
   color: var(--text-3);
@@ -701,7 +715,8 @@ pre code {
   font-style: italic;
 }
 
-.shot figcaption b {
+.shot figcaption b,
+.clip figcaption b {
   color: var(--gold-soft);
   font-weight: 600;
   display: block;

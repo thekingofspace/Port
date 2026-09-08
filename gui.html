@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GUI | Raikin7's Portfolio</title>
-<meta name="description" content="Menus, HUDs and lobby screens built in Vide by Raikin7 for the horror project Cold Blooded.">
+<meta name="description" content="Menus, HUDs, lobbies and in game panels designed and built by Raikin7, reactive throughout, in Vide and in Vision.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -36,42 +36,58 @@
   <h1>GUI</h1>
   <div class="rule"><i></i></div>
   <p class="lede">
-    Menus, HUDs and social screens from Cold Blooded, designed and built by me in Vide.
+    Menus, HUDs, lobbies and in game panels, designed and built by me. Two looks that could not sit
+    further apart, put together the same way underneath.
   </p>
 </div>
 
 <section class="section">
   <div class="ui-lead">
     <p>
-      Everything here is built in Vide, so each panel is a reactive component driven by state rather
-      than a tree of instances poked by hand. A source updates, the screen follows, and nothing has
-      to remember to refresh itself.
+      Every screen here is reactive. A panel reads from a source rather than being poked by hand, so
+      the state updates and the screen follows, and nothing has to remember to refresh itself. The
+      darker work is built in Vide. The bright work is built on Vision, my own declarative library,
+      where the whole tree is described as a table and mounted in one call.
     </p>
     <p>
-      Cold Blooded is a horror project, which set the hard constraint. The GUI had to stay readable
-      in near darkness without lighting the screen up and killing the mood. So everything sits on a
-      black ground, the type carries the tone, and colour appears only where a number has to be read
-      at a glance. Every screen below is live in game and wired to the systems behind it.
+      The two halves ask for opposite things, which is why they are worth showing together. One is a
+      horror interface that has to stay readable in near darkness without lighting the screen up and
+      killing the mood, so it sits on a black ground and lets the type carry the tone. The other is
+      loud on purpose, a surface where every control wants to be looked at and the job is stopping
+      them from shouting over each other. The method underneath does not change between them.
     </p>
-    <div class="chips chips-lg"><span>Vide</span><span>Reactive state</span><span>Menus</span><span>HUD</span><span>Achievements</span><span>Party and lobby</span><span>Responsive scaling</span></div>
+    <div class="chips chips-lg"><span>Vide</span><span>Vision</span><span>Reactive state</span><span>Menus</span><span>HUD</span><span>Lobby and party</span><span>Type design</span><span>Responsive scaling</span></div>
   </div>
 
+  <figure class="clip">
+    <video src="assets/ui/pastel-ui.mp4" poster="assets/ui/pastel-ui-poster.jpg" controls loop muted autoplay playsinline preload="metadata"></video>
+    <figcaption><b>An interface coming up</b> Declared as a table, staged, then mounted in one call. The pose panel expands under the toggles it belongs to, and every plate you see arrives from the same declaration.</figcaption>
+  </figure>
+
   <div class="ui-grid">
+    <figure class="shot ui-shot" data-full="assets/ui/pastel-hud.png">
+      <img src="assets/ui/pastel-hud.png" alt="Pastel interface with gradient buttons down both sides, a settings row along the top and a pose panel on the left" loading="lazy">
+      <figcaption><b>Full screen layout</b> State toggles left, actions right, settings across the top. Each toggle reads its own condition in the label, so a button says what it currently is rather than what pressing it would do.</figcaption>
+    </figure>
     <figure class="shot ui-shot" data-full="assets/ui/menu-title.png">
-      <img src="assets/ui/menu-title.png" alt="Cold Blooded title screen with a serif logo and a vertical menu" loading="lazy">
+      <img src="assets/ui/menu-title.png" alt="Title screen with a serif logo over a live scene and a vertical menu held to one column" loading="lazy">
       <figcaption><b>Title screen</b> A serif logo over a live scene, with the menu held to one quiet column so the world behind it stays the loudest thing on screen.</figcaption>
+    </figure>
+    <figure class="shot ui-shot" data-full="assets/ui/hud-night.png">
+      <img src="assets/ui/hud-night.png" alt="In game HUD showing a night clock, flashlight charge and room temperature" loading="lazy">
+      <figcaption><b>Night HUD</b> Clock, flashlight charge and room temperature, each showing its own keybind inline so nothing needs a tutorial to read.</figcaption>
     </figure>
     <figure class="shot ui-shot" data-full="assets/ui/party.png">
       <img src="assets/ui/party.png" alt="Party screen with a create party panel and a browsable list of open parties" loading="lazy">
       <figcaption><b>Party and lobby</b> Create, browse or join by code, with locked parties, avatar thumbnails and live player counts that update as people come and go.</figcaption>
     </figure>
-    <figure class="shot ui-shot" data-full="assets/ui/hud-night.png">
-      <img src="assets/ui/hud-night.png" alt="In game HUD showing a night clock, flashlight charge and office temperature" loading="lazy">
-      <figcaption><b>Night HUD</b> Clock, flashlight charge and office temperature, each showing its own keybind inline so nothing needs a tutorial to read.</figcaption>
-    </figure>
     <figure class="shot ui-shot" data-full="assets/ui/achievements.png">
       <img src="assets/ui/achievements.png" alt="Achievements screen listing an unlocked achievement with an eye icon" loading="lazy">
       <figcaption><b>Achievements</b> Unlock tracking with icon art, a progress count in the header and a state dot that fills as each one lands.</figcaption>
+    </figure>
+    <figure class="shot ui-shot" data-full="assets/ui/pastel-type.png">
+      <img src="assets/ui/pastel-type.png" alt="Type specimen sheet showing the same rounded lettering in six gradient colourways plus a light and a dark ground" loading="lazy">
+      <figcaption><b>Type specimen</b> One rounded face with a gradient fill and a hard outline, drawn in six colourways and checked on a light and a dark ground so the outline carries the weight when the fill goes pale.</figcaption>
     </figure>
   </div>
 </section>
@@ -80,7 +96,7 @@
   <div class="section-head">
     <span class="section-index">How it is put together</span>
     <h2>Reactive, not wired by hand</h2>
-    <p>Three rules keep a screen this dark from becoming unreadable or unmaintainable.</p>
+    <p>Three rules hold whichever way the surface goes.</p>
   </div>
 
   <div class="grid grid-3">
@@ -88,17 +104,19 @@
       <div class="mod-glyph"><span>I</span></div>
       <h4>State drives the tree</h4>
       <p>
-        Every panel reads from a source. The party list, the flashlight charge and the unlock count
-        all render from state, so a change on the server arrives on screen without a single manual
-        update call.
+        Every panel reads from a source. A party list, a charge meter, an unlock count and a toggle
+        that reports its own condition all render from state, so a change on the server arrives on
+        screen without a single manual update call.
       </p>
     </div>
     <div class="card mod">
       <div class="mod-glyph"><span>II</span></div>
-      <h4>Colour is information</h4>
+      <h4>Colour never decorates</h4>
       <p>
-        Almost everything is white or bone on black. When something turns blue or red it is because
-        a number crossed a threshold, so the eye goes straight to the thing that changed.
+        On the dark screens almost everything is white or bone, and when something turns blue or red
+        it is because a number crossed a threshold. On the bright ones every control wears the same
+        plate for the same reason, so position tells them apart and colour is never the thing you
+        have to read.
       </p>
     </div>
     <div class="card mod">
@@ -106,7 +124,7 @@
       <h4>Scales to the screen</h4>
       <p>
         Layouts are built in scale rather than fixed pixels, so the same components hold their
-        proportions from a phone up to a wide monitor without a separate mobile build.
+        proportions from a phone up to an ultrawide without a separate mobile build.
       </p>
     </div>
   </div>
