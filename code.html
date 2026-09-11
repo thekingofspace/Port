@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Code | Raikin7's Portfolio</title>
-<meta name="description" content="Open libraries and tools by Raikin7. Lehua, Pigeon, Vision, Buffer, LehuaClass, InputController, ReplicationPP, Blackbox and Socket.">
+<meta name="description" content="Open libraries and tools by Raikin7. Lehua, Pigeon, Vision, RoFlux, Buffer, LehuaClass, InputController, ReplicationPP, Blackbox and Socket.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -52,6 +52,9 @@
       </button>
       <button class="tab" role="tab" aria-selected="false" data-panel="p-vision">
         <b>Vision</b><span>Declarative instance trees</span>
+      </button>
+      <button class="tab" role="tab" aria-selected="false" data-panel="p-roflux">
+        <b>RoFlux</b><span>Editor to Studio sync</span>
       </button>
       <button class="tab" role="tab" aria-selected="false" data-panel="p-buffer">
         <b>Buffer</b><span>Binary serialization</span>
@@ -213,6 +216,93 @@ Interface:Mount()</code></pre>
 
 function Vision.Scope(): Types.Scope
     return (Scope.new() :: any) :: Types.Scope
+end</code></pre>
+      </article>
+
+      <article class="panel" id="p-roflux" role="tabpanel">
+        <div class="panel-head">
+          <div>
+            <h4>RoFlux</h4>
+            <p>
+              One way sync from your editor into Roblox Studio. Files on disk are the truth and
+              Studio only ever receives, so there is nothing to merge and no conflict to resolve. A
+              Rust server scans the project into an instance tree, watches it, and streams only the
+              differences over a WebSocket, while the Studio plugin reconciles the place to match.
+              Ownership rules decide what it is allowed to delete, the first sync of every connection
+              is shown as a dry run for you to approve, and each patch is a single undo. Hook scripts
+              written in Luau can rewrite source or claim whole file types at compile time, and the
+              plugin's own interface is built on Vision.
+            </p>
+          </div>
+          <div class="panel-actions">
+            <a class="btn btn-small" href="https://github.com/thekingofspace/RoFlux" target="_blank" rel="noopener">Repository</a>
+            <a class="btn btn-small btn-ghost" href="https://thekingofspace.github.io/RoFlux/" target="_blank" rel="noopener">Docs</a>
+          </div>
+        </div>
+        <div class="chips"><span>Rust</span><span>Luau</span><span>axum</span><span>mlua</span><span>Studio plugin</span><span>Documented</span></div>
+        <p class="code-caption">The whole wire protocol, one enum in each direction</p>
+        <pre><code data-lang="rust">pub const VERSION: u32 = 1;
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+#[serde(tag = "type", rename_all = "camelCase")]
+pub enum Outbound {
+    Hello {
+        protocol: u32,
+        project: String,
+        id: String,
+        server: String,
+    },
+    Sync {
+        cursor: usize,
+        tree: Tree,
+    },
+    Patch {
+        cursor: usize,
+        patch: Patch,
+    },
+    Notice {
+        level: String,
+        text: String,
+    },
+    Pong {
+        cursor: usize,
+    },
+}
+
+#[derive(Clone, Debug, Deserialize)]
+#[serde(tag = "type", rename_all = "camelCase")]
+pub enum Inbound {
+    Ready { place: Option&lt;String&gt; },
+    Resync,
+    Ping,
+    Log { level: Option&lt;String&gt;, text: String },
+}</code></pre>
+        <p class="code-caption">Every sync and every patch lands in Studio as one undo step</p>
+        <pre><code data-lang="luau">local function record&lt;T&gt;(label: string, body: () -&gt; T): T
+	local identifier = ChangeHistoryService:TryBeginRecording(label)
+
+	local ok, result = pcall(body)
+
+	if identifier then
+		ChangeHistoryService:FinishRecording(
+			identifier,
+			if ok then Enum.FinishRecordingOperation.Commit else Enum.FinishRecordingOperation.Cancel
+		)
+	end
+
+	if not ok then
+		error(result, 0)
+	end
+
+	return result
+end
+
+function Reconcile.full(root: Node, project: string): Report
+	return record("RoFlux sync", function()
+		local report = Apply.tree(root, false, Memory.stale(project, root))
+		Memory.save(project, Memory.roots(root, {}))
+		return report
+	end)
 end</code></pre>
       </article>
 
